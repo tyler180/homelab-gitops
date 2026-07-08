@@ -13,7 +13,7 @@ spec:
           route53:
             region: us-west-2
             hostedZoneID: Z04272303NZ93YPTT8MBI
-            accessKeyID: AKIASAIR5WMLJPDXADXQ
+            accessKeyID: AKIASAIR5WMLO7D3C24J
             secretAccessKeySecretRef:
               name: route53-credentials
               key: secret-access-key
