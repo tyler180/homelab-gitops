@@ -6,18 +6,16 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://docker.io/envoyproxy
     chart: gateway-helm
-    targetRevision: v1.8.2
-    helm:
-      releaseName: eg
+    repoURL: docker.io/envoyproxy
+    targetRevision: v0.0.0-latest
   destination:
-    server: https://kubernetes.default.svc
     namespace: envoy-gateway-system
+    server: https://kubernetes.default.svc
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: true
     syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
+    - CreateNamespace=true
+    - ServerSideApply=true
+    automated:
+      prune: true
+      selfHeal: true
