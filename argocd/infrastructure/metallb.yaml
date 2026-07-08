@@ -1,22 +1,17 @@
-# bootstrap/apps/cert-manager.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: metallb
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://charts.jetstack.io
-    chart: cert-manager
-    targetRevision: v1.20.3
-    helm:
-      values: |
-        crds:
-          enabled: true
+    repoURL: https://github.com/tyler180/homelab-gitops.git
+    targetRevision: main
+    path: infrastructure/metallb
   destination:
     server: https://kubernetes.default.svc
-    namespace: cert-manager
+    namespace: metallb-system
   syncPolicy:
     automated:
       prune: false

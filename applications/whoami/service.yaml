@@ -1,4 +1,3 @@
-# apps/whoami/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,7 +5,8 @@ metadata:
   namespace: whoami
 spec:
   selector:
-    app: whoami
+    app.kubernetes.io/name: whoami
   ports:
-    - port: 80
+    - name: http
+      port: 80
       targetPort: 80

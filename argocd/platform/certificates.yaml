@@ -1,21 +1,18 @@
-# bootstrap/apps/metallb.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb
+  name: certificates
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/tyler180/homelab-gitops.git
     targetRevision: main
-    path: infrastructure/metallb
+    path: platform/certificates
   destination:
     server: https://kubernetes.default.svc
-    namespace: metallb-system
+    namespace: envoy-gateway-system
   syncPolicy:
     automated:
       prune: false
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
