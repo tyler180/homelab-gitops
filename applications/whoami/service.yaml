@@ -5,7 +5,7 @@ metadata:
   namespace: whoami
 spec:
   selector:
-    app.kubernetes.io/name: whoami
+    app: whoami
   ports:
     - name: http
       port: 80
