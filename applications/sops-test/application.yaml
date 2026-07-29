@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sops-test
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/tyler180/homelab-gitops.git
+    targetRevision: main
+    path: applications/sops-test
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
