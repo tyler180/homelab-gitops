@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: public
+  namespace: envoy-gateway-system
+spec:
+  gatewayClassName: eg
+
+  listeners:
+    - name: http
+      hostname: "*.k8s.749rmw.com"
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+
+    - name: https
+      hostname: "*.k8s.749rmw.com"
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: wildcard-k8s-749rmw-com-tls
+      allowedRoutes:
+        namespaces:
+          from: All
