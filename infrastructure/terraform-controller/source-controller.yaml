@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flux-source-controller
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://fluxcd-community.github.io/helm-charts
+    chart: source-controller
+    targetRevision: "<PINNED_VERSION>"
+    helm:
+      values: |
+        logLevel: info
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: flux-system
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

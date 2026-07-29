@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tofu-controller
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://flux-iac.github.io/tofu-controller
+    chart: tofu-controller
+    targetRevision: "<PINNED_VERSION>"
+    helm:
+      values: |
+        runner:
+          allowedNamespaces:
+            - terraform-system
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: flux-system
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
