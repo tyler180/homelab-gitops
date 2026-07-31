@@ -1,0 +1,80 @@
+global:
+  fullnameOverride: authentik
+
+authentik:
+  existingSecret:
+    secretName: authentik-config
+
+  error_reporting:
+    enabled: false
+
+  postgresql:
+    host: authentik-postgresql
+    port: 5432
+    name: authentik
+    user: authentik
+
+  email:
+    host: ""
+    port: 587
+    username: ""
+    from: ""
+    use_tls: true
+    use_ssl: false
+
+server:
+  replicas: 1
+
+  ingress:
+    enabled: false
+
+  route:
+    main:
+      enabled: true
+
+      hostnames:
+        - auth.k8s.749rmw.com
+
+      parentRefs:
+        - name: public
+          namespace: envoy-gateway-system
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+
+worker:
+  replicas: 1
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+
+postgresql:
+  enabled: true
+
+  auth:
+    username: authentik
+    database: authentik
+    existingSecret: authentik-postgresql
+    secretKeys:
+      userPasswordKey: password
+      adminPasswordKey: postgres-password
+
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        memory: 1Gi
