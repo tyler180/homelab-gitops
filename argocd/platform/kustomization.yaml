@@ -5,3 +5,4 @@ resources:
   - certificates.yaml
   - clusterissuer.yaml
   - gateway.yaml
+  - ../../platform/authentik
