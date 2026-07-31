@@ -1,10 +1,26 @@
 global:
   fullnameOverride: authentik
 
-authentik:
-  existingSecret:
-    secretName: authentik-config
+  env:
+    - name: AUTHENTIK_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: authentik-config
+          key: secret_key
 
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-config
+          key: postgresql__password
+
+    - name: AUTHENTIK_EMAIL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-config
+          key: email__password
+
+authentik:
   error_reporting:
     enabled: false
 
@@ -31,30 +47,14 @@ server:
   route:
     main:
       enabled: true
-
       hostnames:
         - auth.k8s.749rmw.com
-
       parentRefs:
         - name: public
           namespace: envoy-gateway-system
 
-  resources:
-    requests:
-      cpu: 100m
-      memory: 512Mi
-    limits:
-      memory: 1Gi
-
 worker:
   replicas: 1
-
-  resources:
-    requests:
-      cpu: 100m
-      memory: 512Mi
-    limits:
-      memory: 1Gi
 
 postgresql:
   enabled: true
@@ -71,10 +71,3 @@ postgresql:
     persistence:
       enabled: true
       size: 8Gi
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        memory: 1Gi
