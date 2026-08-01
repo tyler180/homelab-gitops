@@ -7,4 +7,5 @@ resources:
   - envoy-gateway.yaml
   - external-secrets.yaml
   - metallb.yaml
+  - ../../infrastructure/longhorn
   # - terraform-controller.yaml
