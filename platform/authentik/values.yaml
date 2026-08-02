@@ -52,6 +52,8 @@ server:
       parentRefs:
         - name: public
           namespace: envoy-gateway-system
+          group: gateway.networking.k8s.io
+          kind: Gateway
 
 worker:
   replicas: 1
