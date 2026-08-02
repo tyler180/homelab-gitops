@@ -1,6 +1,26 @@
 configs:
   cm:
     kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
+    url: https://argocd.k8s.749rmw.com
+    dex.config: |
+      connectors:
+        - type: oidc
+          id: authentik
+          name: authentik
+          config:
+            issuer: https://auth.k8s.749rmw.com/application/o/argocd/
+            clientID: mifxD0VttVzQjEbP8ppQiXPMmJwvhDFVhtA1gLbV
+            clientSecret: $argocd-authentik-secret:clientSecret
+            insecureEnableGroups: true
+            scopes:
+              - openid
+              - profile
+              - email
+  rbac:
+    policy.default: role:readonly
+    policy.csv: |
+      g, Argo CD Admins, role:admin
+      g, Argo CD Viewers, role:readonly
 
 repoServer:
   env:
