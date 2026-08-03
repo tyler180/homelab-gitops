@@ -21,6 +21,8 @@ configs:
     policy.csv: |
       g, Argo CD Admins, role:admin
       g, Argo CD Viewers, role:readonly
+  params:
+    server.insecure: true
 
 repoServer:
   env:
