@@ -14,24 +14,22 @@ spec:
     server: https://kubernetes.default.svc
     namespace: authentik
 
-  source:
-    - repoURL: https://charts.goauthentik.io
-      chart: authentik
-      targetRevision: 2026.5.6
+  sources:
+    - chart: authentik
       helm:
         releaseName: authentik
         valueFiles:
           - $values/platform/authentik/values.yaml
-
-    - repoURL: https://github.com/tyler180/homelab-gitops.git
+      repoURL: https://charts.goauthentik.io
+      targetRevision: 2026.5.6
+    - ref: values
+      repoURL: https://github.com/tyler180/homelab-gitops.git
       targetRevision: main
-      ref: values
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
