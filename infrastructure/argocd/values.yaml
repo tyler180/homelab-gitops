@@ -9,7 +9,7 @@ configs:
           name: authentik
           config:
             issuer: https://auth.k8s.749rmw.com/application/o/argocd/
-            clientID: mifxD0VttVzQjEbP8ppQiXPMmJwvhDFVhtA1gLbV
+            clientID: fUE0ft61QUX8F3cnV0mWYeI6sOrEOEWuat3rUc4l
             clientSecret: $argocd-authentik-secret:clientSecret
             insecureEnableGroups: true
             scopes:
