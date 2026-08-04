@@ -1,6 +1,6 @@
 configs:
   cm:
-    kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
+    kustomize.buildOptions: --enable-alpha-plugins --enable-exec
     url: https://argocd.k8s.749rmw.com
     dex.config: |
       connectors:
@@ -34,29 +34,22 @@ repoServer:
   volumes:
     - name: custom-tools
       emptyDir: {}
-    - name: kustomize-plugins
-      emptyDir: {}
     - name: sops-age
       secret:
         secretName: sops-age
 
   initContainers:
-    - name: install-ksops
-      image: viaductoss/ksops:v4.5.1
-      command:
-        - /bin/sh
-        - -c
-      args:
-        - |
-          /usr/local/bin/ksops install --with-kustomize /custom-tools
-          mkdir -p /plugins/viaduct.ai/v1/ksops
-          cp /custom-tools/ksops /plugins/viaduct.ai/v1/ksops/ksops
-
-      volumeMounts:
-        - name: custom-tools
-          mountPath: /custom-tools
-        - name: kustomize-plugins
-          mountPath: /plugins
+  - name: install-ksops
+    image: viaductoss/ksops:v4.5.1
+    command:
+      - /usr/local/bin/ksops
+    args:
+      - install
+      - --with-kustomize
+      - /custom-tools
+    volumeMounts:
+      - name: custom-tools
+        mountPath: /custom-tools
 
   volumeMounts:
     - name: custom-tools
@@ -65,8 +58,6 @@ repoServer:
     - name: custom-tools
       mountPath: /usr/local/bin/ksops
       subPath: ksops
-    - name: kustomize-plugins
-      mountPath: /home/argocd/.config/kustomize/plugin
     - name: sops-age
       mountPath: /home/argocd/.config/sops/age/keys.txt
       subPath: keys.txt
