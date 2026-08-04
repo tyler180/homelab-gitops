@@ -8,4 +8,5 @@ resources:
   - external-secrets.yaml
   - metallb.yaml
   - ../../infrastructure/longhorn
+  - argocd-secrets.yaml
   # - terraform-controller.yaml
