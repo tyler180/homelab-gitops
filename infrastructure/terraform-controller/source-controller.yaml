@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://fluxcd-community.github.io/helm-charts
     chart: source-controller
-    targetRevision: "<PINNED_VERSION>"
+    targetRevision: v1.9.2
     helm:
       values: |
         logLevel: info
