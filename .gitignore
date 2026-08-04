@@ -2,3 +2,4 @@ temp.yaml
 outputs.sh
 *.bak
 *.txt
+*.broken
