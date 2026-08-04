@@ -34,6 +34,8 @@ repoServer:
   volumes:
     - name: custom-tools
       emptyDir: {}
+    - name: kustomize-plugins
+      emptyDir: {}
     - name: sops-age
       secret:
         secretName: sops-age
@@ -42,14 +44,19 @@ repoServer:
     - name: install-ksops
       image: viaductoss/ksops:v4.5.1
       command:
-        - /usr/local/bin/ksops
+        - /bin/sh
+        - -c
       args:
-        - install
-        - --with-kustomize
-        - /custom-tools
+        - |
+          /usr/local/bin/ksops install --with-kustomize /custom-tools
+          mkdir -p /plugins/viaduct.ai/v1/ksops
+          cp /custom-tools/ksops /plugins/viaduct.ai/v1/ksops/ksops
+
       volumeMounts:
         - name: custom-tools
           mountPath: /custom-tools
+        - name: kustomize-plugins
+          mountPath: /plugins
 
   volumeMounts:
     - name: custom-tools
@@ -58,6 +65,8 @@ repoServer:
     - name: custom-tools
       mountPath: /usr/local/bin/ksops
       subPath: ksops
+    - name: kustomize-plugins
+      mountPath: /home/argocd/.config/kustomize/plugin
     - name: sops-age
       mountPath: /home/argocd/.config/sops/age/keys.txt
       subPath: keys.txt
