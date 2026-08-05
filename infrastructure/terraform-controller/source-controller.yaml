@@ -3,6 +3,10 @@ kind: Application
 metadata:
   name: flux-source-controller
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
 
@@ -11,6 +15,7 @@ spec:
     chart: source-controller
     targetRevision: v1.9.2
     helm:
+      releaseName: source-controller
       values: |
         logLevel: info
 
@@ -24,3 +29,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
