@@ -10,14 +10,6 @@ metadata:
 spec:
   project: default
 
-  # source:
-  #   repoURL: https://fluxcd-community.github.io/helm-charts
-  #   chart: source-controller
-  #   targetRevision: v1.9.2
-  #   helm:
-  #     releaseName: source-controller
-  #     values: |
-  #       logLevel: info
   source:
     repoURL: https://github.com/fluxcd/source-controller.git
     targetRevision: v1.9.2

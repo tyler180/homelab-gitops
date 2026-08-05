@@ -3,18 +3,17 @@ kind: Application
 metadata:
   name: tofu-controller
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
 
   source:
-    repoURL: https://flux-iac.github.io/tofu-controller
-    chart: tofu-controller
-    targetRevision: "<PINNED_VERSION>"
-    helm:
-      values: |
-        runner:
-          allowedNamespaces:
-            - terraform-system
+    repoURL: https://github.com/flux-iac/tofu-controller.git
+    targetRevision: v0.16.4
+    path: config/default
 
   destination:
     server: https://kubernetes.default.svc
@@ -26,3 +25,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
