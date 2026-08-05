@@ -9,4 +9,4 @@ resources:
   - metallb.yaml
   - ../../infrastructure/longhorn
   - argocd-secrets.yaml
-  # - terraform-controller.yaml
+  - ../../infrastructure/terraform-controller
