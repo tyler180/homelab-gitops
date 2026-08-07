@@ -12,7 +12,7 @@ spec:
 
   source:
     repoURL: https://github.com/flux-iac/tofu-controller.git
-    targetRevision: v0.16.4
+    targetRevision: v0.16.5
     path: config/default
 
   destination:
